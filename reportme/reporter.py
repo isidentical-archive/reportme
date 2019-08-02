@@ -3,7 +3,7 @@ from datetime import datetime
 from enum import Enum
 from functools import partial
 from typing import List, Optional
-
+from contextlib import AbstractContextManager, contextmanager
 
 @dataclass
 class ReqType:
@@ -35,28 +35,32 @@ class Node:
         self.requirements.append(req)
         return req
 
-
 @dataclass
 class Category:
     name: str
     nodes: List[Node] = field(default_factory=list)
 
+    @contextmanager
     def add_node(self, name):
         node = Node(name)
         self.nodes.append(node)
-        return node
+        yield node
 
 
 @dataclass
-class Report:
-    name: str
-    version: str
-    description: str
+class Report(AbstractContextManager):
+    name: Optional[str] = None
+    version: Optional[str] = None
+    description: Optional[str] = None
     date: datetime = datetime.now()
 
     categories: List[Category] = field(default_factory=list)
-
+    
+    @contextmanager
     def add_category(self, name):
         category = Category(name)
         self.categories.append(category)
-        return category
+        yield category
+
+    def __exit__(self, *exc_info):
+        return None
