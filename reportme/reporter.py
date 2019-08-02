@@ -11,6 +11,9 @@ class ReqType:
     requirement: Optional[str] = None
     message: Optional[str] = None
 
+    def __str__(self):
+        return f"{self.requirement}: {self.message}"
+
     def __getattr__(self, requirement):
         return partial(self.__class__, self._type, requirement)
 
