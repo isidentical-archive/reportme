@@ -1,9 +1,10 @@
+from contextlib import AbstractContextManager, contextmanager
 from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from functools import partial
 from typing import List, Optional
-from contextlib import AbstractContextManager, contextmanager
+
 
 @dataclass
 class ReqType:
@@ -35,6 +36,7 @@ class Node:
         self.requirements.append(req)
         return req
 
+
 @dataclass
 class Category:
     name: str
@@ -55,7 +57,7 @@ class Report(AbstractContextManager):
     date: datetime = datetime.now()
 
     categories: List[Category] = field(default_factory=list)
-    
+
     @contextmanager
     def add_category(self, name):
         category = Category(name)

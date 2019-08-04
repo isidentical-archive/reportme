@@ -36,6 +36,10 @@ class ReportBuffer:
 
             rows = []
             for node in self._nodes:
+                _, requirement, message = node["report"].values()
+                if message:
+                    requirement += f" {message}"
+                node["report"] = requirement
                 fields = [
                     str(node[column]).ljust(CELL_WIDTHS[column]) for column in columns
                 ]

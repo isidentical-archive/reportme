@@ -1,4 +1,5 @@
 from pathlib import Path
+
 from setuptools import setup
 
 current_dir = Path(__file__).parent.resolve()
@@ -8,11 +9,11 @@ with open(current_dir / "README.md", encoding="utf-8") as f:
 
 setup(
     name="reportme",
-    version="0.2.0",
+    version="0.3.0",
     description="Report generator for THG",
     author="thg",
     author_email="isidentical@gmail.com",
     packages=["reportme"],
-    long_description = long_description,
-    long_description_content_type = "text/markdown",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
 )
