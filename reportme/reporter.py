@@ -16,8 +16,9 @@ class ReqType:
         return f"{self.requirement}: {self.message}"
 
     def __getattr__(self, requirement):
-        return partial(self.__class__, self._type, requirement)
-
+        if not requirement.startswith("__"):
+            return partial(self.__class__, self._type, requirement)
+        raise AttributeError(requirement)
 
 @dataclass
 class Requirement:
